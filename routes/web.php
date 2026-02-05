@@ -18,6 +18,7 @@ use App\Http\Controllers\Landing\BerandaController;
 use App\Http\Controllers\Landing\InformasiLandingController;
 use App\Http\Controllers\Landing\LayananController;
 use App\Http\Controllers\Landing\ProfilLandingController;
+use App\Http\Controllers\Landing\RegisterController;
 use App\Http\Controllers\PdfDukController;
 use App\Http\Controllers\PdfNominatifController;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::get('/register', [RegisterController::class, 'index'])->name('login');
     Route::post('/login/pegawai', [AuthController::class, 'loginPegawai'])->name('login.pegawai');
     Route::post('/login/pengunjung', [AuthController::class, 'loginPengunjung'])->name('login.pengunjung');
 

@@ -254,15 +254,48 @@
     </style>
 
     <!-- Widget Hotline WhatsApp -->
-        <a href="https://wa.me/6282116869141?text=Halo%20Puskesmas%20Cikalapa%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20kesehatan."
-            target="_blank"
-            class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center w-14 h-14 transition-all duration-300 ease-in-out z-50"
-            title="Hubungi Kami di WhatsApp">
-            <i class="fab fa-whatsapp text-3xl"></i>
-        </a>
+        <!-- Widget Hotline WhatsApp -->
+        <div class="fixed bottom-6 right-6 flex items-center gap-3 z-50">
+        
+            <!-- Text typing -->
+            <div
+                class="bg-white px-4 py-2 rounded-lg shadow-lg text-sm font-semibold text-gray-700 overflow-hidden whitespace-nowrap">
+                <span id="typing-text"></span>
+                <span class="typing-cursor">|</span>
+            </div>
+        
+            <!-- Button WhatsApp -->
+            <a href="https://wa.me/6282116869141?text=Halo%20Puskesmas%20Cikalapa%2C%20saya%20ingin%20bertanya%20tentang%20layanan%20kesehatan."
+                target="_blank"
+                class="relative bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center w-14 h-14 transition-all duration-300 ease-in-out"
+                title="Hubungi Kami di WhatsApp">
+        
+                <i class="fab fa-whatsapp text-3xl"></i>
+            </a>
+        </div>
         
         <!-- Efek animasi berdenyut (opsional, biar menarik perhatian) -->
         <style>
+            /* Cursor kedip */
+            .typing-cursor {
+                animation: blink 1s infinite;
+            }
+        
+            @keyframes blink {
+        
+                0%,
+                50%,
+                100% {
+                    opacity: 1;
+                }
+        
+                25%,
+                75% {
+                    opacity: 0;
+                }
+            }
+        
+            /* Pulse Ring */
             .pulse-ring {
                 position: absolute;
                 width: 3.5rem;
@@ -283,7 +316,7 @@
                 }
         
                 70% {
-                    transform: translate(-50%, -50%) scale(1.3);
+                    transform: translate(-50%, -50%) scale(1.4);
                     opacity: 0;
                 }
         
@@ -295,13 +328,39 @@
         </style>
         
         <script>
-            // Tambahkan efek pulse ke tombol
-                document.addEventListener('DOMContentLoaded', () => {
-                    const whatsappBtn = document.querySelector('a[href*="wa.me"]');
-                    const pulseRing = document.createElement('span');
-                    pulseRing.classList.add('pulse-ring');
-                    whatsappBtn.appendChild(pulseRing);
-                });
+            document.addEventListener('DOMContentLoaded', () => {
+                // Pulse ring
+                const whatsappBtn = document.querySelector('a[href*="wa.me"]');
+                const pulseRing = document.createElement('span');
+                pulseRing.classList.add('pulse-ring');
+                whatsappBtn.appendChild(pulseRing);
+        
+                // Typing animation
+                const text = "Hubungi kami di WhatsApp..";
+                const typingText = document.getElementById("typing-text");
+        
+                let index = 0;
+                let isDeleting = false;
+        
+                function typeEffect() {
+                    if (!isDeleting) {
+                        typingText.textContent = text.substring(0, index + 1);
+                        index++;
+                        if (index === text.length) {
+                            setTimeout(() => isDeleting = true, 1500);
+                        }
+                    } else {
+                        typingText.textContent = text.substring(0, index - 1);
+                        index--;
+                        if (index === 0) {
+                            isDeleting = false;
+                        }
+                    }
+                    setTimeout(typeEffect, isDeleting ? 50 : 100);
+                }
+        
+                typeEffect();
+            });
         </script>
 </body>
 

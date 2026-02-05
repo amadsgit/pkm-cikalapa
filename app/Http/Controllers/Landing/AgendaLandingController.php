@@ -19,7 +19,8 @@ class AgendaLandingController extends Controller
         // Ambil parameter kategori dari URL (?kategori=slug)
         $kategoriSlug = $request->query('kategori');
 
-        $query = Kegiatan::with(['kategori', 'author'])->latest();
+        $query = Kegiatan::with(['kategori', 'author'])
+            ->orderBy('tanggal', 'desc');
 
         if ($kategoriSlug && $kategoriSlug !== 'semua') {
             $query->whereHas('kategori', function ($q) use ($kategoriSlug) {
