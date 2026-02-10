@@ -18,7 +18,7 @@ class InformasiController extends Controller
     public function index()
     {
         $informasi = Informasi::with(['kategori', 'author'])
-            ->orderBy('tanggal', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
         $kategori = KategoriInformasi::orderBy('nama')->get();
 
@@ -31,7 +31,6 @@ class InformasiController extends Controller
             'kategori_id' => 'required|exists:kategori_informasi,id',
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'tanggal' => 'required|date',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 

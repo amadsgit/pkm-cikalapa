@@ -159,7 +159,7 @@
                             {{-- Tanggal --}}
                             <div>
                                 <label class="block text-sm font-medium text-gray-700">
-                                    Tanggal <span class="text-red-500">*</span>
+                                    Tanggal Pelaksanaan Kegiatan<span class="text-red-500">*</span>
                                 </label>
                                 <input type="date" name="tanggal" value="{{ old('tanggal') }}" class="mt-2 block w-full text-lg border border-blue-300 bg-gray-100 rounded-xl
                                         px-4 py-3 shadow-sm

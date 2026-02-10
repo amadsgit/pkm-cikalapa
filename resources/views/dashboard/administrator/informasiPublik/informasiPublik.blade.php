@@ -65,7 +65,9 @@
                             <tr class="border-t">
                                 <td class="px-4 py-3 font-medium">{{ $item->judul }}</td>
                                 <td class="px-4 py-3">{{ $item->kategori->nama }}</td>
-                                <td class="px-4 py-3">{{ $item->tanggal }}</td>
+                                <td class="px-4 py-3">
+                                    {{ $item->created_at->translatedFormat('d F Y') }}
+                                </td>
                                 <td class="px-4 py-3">{{ $item->author->pegawai->nama_pegawai ?? '-' }}</td>
                                 <td class="px-4 py-3 text-center flex justify-center gap-2">
             
@@ -148,20 +150,6 @@
                                 </select>
 
                                 @error('kategori_id')
-                                <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
-                                @enderror
-                            </div>
-
-                            {{-- Tanggal --}}
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700">
-                                    Tanggal <span class="text-red-500">*</span>
-                                </label>
-                                <input type="date" name="tanggal" value="{{ old('tanggal') }}" class="mt-2 block w-full text-lg border border-blue-300 bg-gray-100 rounded-xl
-                                        px-4 py-3 shadow-sm
-                                        focus:ring-emerald-400 focus:border-emerald-400" required>
-
-                                @error('tanggal')
                                 <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                                 @enderror
                             </div>

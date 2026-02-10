@@ -16,10 +16,10 @@ class InformasiLandingController extends Controller
         $klaster = Klaster::all();
         $kategori = KategoriInformasi::all();
 
-        // Ambil parameter kategori dari URL (?kategori=slug)
         $kategoriSlug = $request->query('kategori');
 
-        $query = Informasi::with(['kategori', 'author'])->latest();
+        $query = Informasi::with(['kategori', 'author'])
+            ->orderByDesc('created_at');
 
         if ($kategoriSlug && $kategoriSlug !== 'semua') {
             $query->whereHas('kategori', function ($q) use ($kategoriSlug) {
@@ -28,7 +28,6 @@ class InformasiLandingController extends Controller
         }
 
         $informasi = $query->paginate(6)->withQueryString();
-
         $profile = ProfilePuskesmas::first();
 
         return view('landing.informasi', [

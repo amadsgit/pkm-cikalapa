@@ -21,7 +21,7 @@
                 </div>
         
                 <!-- Right: Button -->
-                <a href="/berita"
+                <a href="{{ route('informasi') }}"
                     class="group flex items-center text-sm font-medium text-emerald-600 border border-emerald-200 rounded-xl px-4 py-1.5 hover:bg-emerald-600 hover:text-white transition-all duration-300 shadow-sm">
                     <span>Lihat Semua</span>
                     <svg class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none"
@@ -66,18 +66,18 @@
                                         <div
                                             class="flex flex-col items-center mr-3 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-lg shadow-sm overflow-hidden border border-emerald-100 transition-all duration-300 group-hover:shadow-md">
                                             <div class="bg-emerald-500 text-white text-xs font-bold w-full text-center py-0.5 px-2">
-                                                {{ \Carbon\Carbon::parse($item->tanggal)->format('M') }}
+                                                {{ \Carbon\Carbon::parse($item->created_at)->format('M') }}
                                             </div>
                                             <div class="text-emerald-700 text-base font-bold py-0.5 px-3">
-                                                {{ \Carbon\Carbon::parse($item->tanggal)->format('d') }}
+                                                {{ \Carbon\Carbon::parse($item->created_at)->format('d') }}
                                             </div>
                                         </div>
                                         <div class="flex flex-col text-xs">
                                             <span class="text-gray-500 font-medium">
-                                                {{ \Carbon\Carbon::parse($item->tanggal)->format('Y') }}
+                                                {{ \Carbon\Carbon::parse($item->created_at)->format('Y') }}
                                             </span>
                                             <span class="text-gray-400">
-                                                {{ \Carbon\Carbon::parse($item->tanggal)->isoFormat('dddd') }}
+                                                {{ \Carbon\Carbon::parse($item->created_at)->isoFormat('dddd') }}
                                             </span>
                                         </div>
                                     </div>

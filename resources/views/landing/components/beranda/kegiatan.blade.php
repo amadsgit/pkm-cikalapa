@@ -19,7 +19,7 @@
                 </div>
 
                 <!-- Right: Simplified Button -->
-                <a href="https://desa.lokerciayumajakuning.com/kegiatan"
+                <a href="{{ route('agenda') }}"
                     class="flex-shrink-0 inline-flex items-center text-sm font-medium text-emerald-600 border border-emerald-200 rounded-lg px-3 py-1.5 hover:bg-emerald-50 transition-colors">
                     <span>Lihat Semua</span>
                     <svg class="ml-1.5 w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -18,7 +18,7 @@ class AgendaController extends Controller
     public function index()
     {
         $agenda = Kegiatan::with(['kategori', 'author'])
-            ->orderBy('tanggal', 'desc')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $kategori = KategoriKegiatan::orderBy('nama')->get();
