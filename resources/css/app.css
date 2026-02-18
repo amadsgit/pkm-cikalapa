@@ -1,3 +1,8 @@
+@import './landing/landingpage.css';
+@import './landing/aos.css';
+@import './landing/font-awesome.min.css';
+@import './landing/swiper-bundle.min.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
