@@ -7,6 +7,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('logopkm.png') }}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('logopkm.png') }}">
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('logopkm.png') }}">
+
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
@@ -17,7 +18,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="csrf-token" content="zZbL2OOZi9K5g3Wful7tb8TkzLW15IvErdPHgnTk">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- SEO Tags -->
     <title>UPTD Puskesmas Cikalapa</title>
@@ -28,22 +29,24 @@
     <meta name="author" content="Puskesmas Cikalapa">
     <meta name="theme-color" content="#047857">
 
-    <!-- Fonts - Upgraded with modern combinations -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
+    <!-- Fonts -->
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
-    <!-- Scripts & Styles -->
-    {{-- <link rel="stylesheet" href="{{ asset('css/landing/landingpage.css') }}"> --}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    {{-- <link href="{{ asset('css/landing/aos.css') }}" rel="stylesheet"> --}}
-    <script src="{{ asset('js/landing/landingpage.js') }}" defer></script>
-    <!-- CSS Tailwind -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- TailwindCSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.3.3/dist/tailwind.min.css" rel="stylesheet">
 
-    <script src="{{ asset('js/landing/aos.js') }}"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- AOS CSS & JS CDN -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom JS -->
+    <script src="{{ asset('js/landing/landingpage.js') }}" defer></script>
     @stack('style')
 </head>
 
