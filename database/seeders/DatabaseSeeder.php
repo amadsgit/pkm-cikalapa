@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             PegawaiSeeder::class,
             UserSeeder::class,
             RoleUserSeeder::class,
+            ProfilePuskesmasSeeder::class,
             BatasWilayahSeeder::class,
             KategoriInformasiSeeder::class,
             KategoriKegiatanSeeder::class,
@@ -24,7 +25,6 @@ class DatabaseSeeder extends Seeder
             LayananSeeder::class,
             LayananKesehatanSeeder::class,
             LayananPersyaratanSeeder::class,
-            ProfilePuskesmasSeeder::class,
             WilayahKerjaSeeder::class,
             StaffPuskesmasSeeder::class,
         ]);
