@@ -323,7 +323,7 @@
                                         <p
                                             class="text-[11px] text-orange-500 italic mt-0.5 leading-tight flex items-center gap-1">
                                             <i class="fas fa-info-circle text-orange-500"></i>
-                                            Tarif sesuai Perda Kabupaten Subang Nomor 12 Tahun 2023
+                                            Tarif dapat berubah sewaktu-waktu sesuai ketentuan Peraturan Daerah (Perda) yang berlaku.
                                         </p>
                                     </div>
                                 </div>
