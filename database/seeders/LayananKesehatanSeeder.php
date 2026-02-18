@@ -7,6 +7,7 @@ use App\Models\KategoriLayanan;
 use App\Models\Layanan;
 use App\Models\LayananPembayaran;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class LayananKesehatanSeeder extends Seeder
 {
@@ -17,7 +18,7 @@ class LayananKesehatanSeeder extends Seeder
         $umum = JenisPembayaran::where('nama', 'Umum')->first();
 
         if (! $kategori || ! $bpjs || ! $umum) {
-            $this->command->warn('⚠️ Pastikan seeder kategori_layanan dan jenis_pembayaran sudah dijalankan terlebih dahulu.');
+            $this->command->warn('Seeder kategori dan jenis pembayaran belum ada');
 
             return;
         }
@@ -38,29 +39,41 @@ class LayananKesehatanSeeder extends Seeder
         ];
 
         foreach ($layanans as $data) {
-            $layanan = Layanan::create([
-                'kategori_id' => $kategori->id,
-                'nama_layanan' => $data['nama_layanan'],
-                'deskripsi' => $data['deskripsi'],
-                'slug' => \Str::slug($data['nama_layanan']),
-            ]);
 
-            // Simpan ke pivot manual (lebih aman & eksplisit)
-            LayananPembayaran::create([
-                'layanan_id' => $layanan->id,
-                'jenis_pembayaran_id' => $bpjs->id,
-                'tarif' => $data['tarif_bpjs'],
-                'keterangan' => 'Gratis untuk peserta BPJS',
-            ]);
+            $slug = Str::slug($data['nama_layanan']);
 
-            LayananPembayaran::create([
-                'layanan_id' => $layanan->id,
-                'jenis_pembayaran_id' => $umum->id,
-                'tarif' => $data['tarif_umum'],
-                'keterangan' => 'Tarif umum tanpa BPJS',
-            ]);
+            $layanan = Layanan::updateOrCreate(
+                ['slug' => $slug],
+                [
+                    'kategori_id' => $kategori->id,
+                    'nama_layanan' => $data['nama_layanan'],
+                    'deskripsi' => $data['deskripsi'],
+                ]
+            );
+
+            LayananPembayaran::updateOrCreate(
+                [
+                    'layanan_id' => $layanan->id,
+                    'jenis_pembayaran_id' => $bpjs->id,
+                ],
+                [
+                    'tarif' => $data['tarif_bpjs'],
+                    'keterangan' => 'Gratis untuk peserta BPJS',
+                ]
+            );
+
+            LayananPembayaran::updateOrCreate(
+                [
+                    'layanan_id' => $layanan->id,
+                    'jenis_pembayaran_id' => $umum->id,
+                ],
+                [
+                    'tarif' => $data['tarif_umum'],
+                    'keterangan' => 'Tarif umum tanpa BPJS',
+                ]
+            );
         }
 
-        $this->command->info('Seeder layanan kesehatan berhasil dimasukkan ke database!');
+        $this->command->info('Seeder layanan kesehatan OK');
     }
 }
