@@ -100,9 +100,8 @@
         <!-- Divider -->
         <div class="mt-12 border-t border-white/20 pt-6 flex flex-col md:flex-row items-center justify-between">
             <p class="text-sm text-emerald-50">&copy; 2026 Puskesmas Cikalapa Kabupaten Subang. All Right Reserve. 
-                {{-- powered: <a href="https://amdcom.vercel.app/" target="_blank">AMDCOM</a> --}}
                 build with <i class="fa fa-heart" style="color: red;"></i> 
-                by <a href="https://amadsgit.github.io/mamad-ahmad-portofolio/" target="_blank">M Ahmad</a> </p>
+                by <a href="https://www.instagram.com/m2d.ahm/" target="_blank">M Ahmad</a> </p>
             <div class="mt-4 md:mt-0 flex space-x-4">
                 <a href="#" class="hover:text-sky-200 transition"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="hover:text-sky-200 transition"><i class="fab fa-twitter"></i></a>
