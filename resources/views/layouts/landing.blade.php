@@ -35,11 +35,12 @@
         rel="stylesheet">
 
     <!-- Scripts & Styles -->
+    <link rel="stylesheet" href="{{ asset('css/landing/landingpage.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="{{ asset('css/landing/aos.css') }}" rel="stylesheet">
     <script src="{{ asset('js/landing/landingpage.js') }}" defer></script>
     <!-- CSS Tailwind -->
-    @vite(['resources/css/app.css', 'resources/js/app.js',
-    'resources/js/landing/aos.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <script src="{{ asset('js/landing/aos.js') }}"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
