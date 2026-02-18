@@ -10,7 +10,7 @@ class PegawaiSeeder extends Seeder
     public function run(): void
     {
 
-        DB::table('pegawai')->insert([
+        $pegawai = [
 
             [
 
@@ -109,7 +109,19 @@ class PegawaiSeeder extends Seeder
 
             ],
 
-        ]);
+        ];
+
+        foreach ($pegawai as $data) {
+
+            DB::table('pegawai')->updateOrInsert(
+
+                ['id' => $data['id']], // kondisi cek
+
+                $data // data update / insert
+
+            );
+
+        }
 
     }
 }
