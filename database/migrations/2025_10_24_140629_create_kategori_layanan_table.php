@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('kategori_layanan', function (Blueprint $table) {
             $table->id();
             $table->string('nama_kategori', 100);
+            $table->string('slug')->unique();
             $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
