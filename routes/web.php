@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::get('/register', [RegisterController::class, 'index'])->name('login');
+    Route::get('/register', [RegisterController::class, 'index'])->name('register');
     Route::post('/login/pegawai', [AuthController::class, 'loginPegawai'])->name('login.pegawai');
     Route::post('/login/pengunjung', [AuthController::class, 'loginPengunjung'])->name('login.pengunjung');
 

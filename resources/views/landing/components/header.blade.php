@@ -113,10 +113,10 @@
                             class="text-sm font-medium px-5 py-2 text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 border border-emerald-200 rounded-lg transition-colors duration-200">
                             Masuk
                         </a>
-                        <a href="/register"
+                        {{-- <a href="/register"
                             class="text-sm font-medium px-5 py-2 text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg shadow-sm hover:shadow transition-all duration-200">
                             Daftar
-                        </a>
+                        </a> --}}
                     </div>
                 </div>
 
