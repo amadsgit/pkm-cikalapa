@@ -32,7 +32,7 @@
                         <i class="fas fa-user-friends mr-2 text-emerald-500"></i> Pasien Peserta BPJS
                     </div>
                     <div class="mt-4">
-                        <h3 class="text-4xl md:text-5xl font-bold text-white">2850 <span
+                        <h3 class="text-4xl md:text-5xl font-bold text-white"><i class="fa-solid fa-plus-minus"></i> 2850 <span
                                 class="text-sm ml-2">orang</span></h3>
                         <p class="text-white/70 mt-2">Total Pasien Terdaftar</p>
                     </div>
@@ -52,7 +52,7 @@
                         <i class="fas fa-stethoscope mr-2 text-sky-500"></i> Tenaga Medis
                     </div>
                     <div class="mt-4">
-                        <h3 class="text-4xl md:text-5xl font-bold text-white">45 <span class="text-sm ml-2">orang</span>
+                        <h3 class="text-4xl md:text-5xl font-bold text-white"><i class="fa-solid fa-plus-minus"></i> 45 <span class="text-sm ml-2">orang</span>
                         </h3>
                         <p class="text-white/70 mt-2">Total Tenaga Medis Aktif</p>
                     </div>
@@ -72,7 +72,7 @@
                         <i class="fas fa-file-medical mr-2 text-purple-500"></i> Jenis Layanan
                     </div>
                     <div class="mt-4">
-                        <h3 class="text-4xl md:text-5xl font-bold text-white">30 <span class="text-sm ml-2">jenis</span>
+                        <h3 class="text-4xl md:text-5xl font-bold text-white"><i class="fa-solid fa-plus-minus"></i> 30 <span class="text-sm ml-2">jenis</span>
                         </h3>
                         <p class="text-white/70 mt-2">Total Jenis Layanan yang Tersedia</p>
                     </div>
@@ -92,7 +92,7 @@
                         <i class="fas fa-calendar-alt mr-2 text-emerald-500"></i> Kunjungan Harian
                     </div>
                     <div class="mt-4">
-                        <h3 class="text-4xl md:text-5xl font-bold text-white">120 <span
+                        <h3 class="text-4xl md:text-5xl font-bold text-white"><i class="fa-solid fa-plus-minus"></i> 120 <span
                                 class="text-sm ml-2">kunjungan</span></h3>
                         <p class="text-white/70 mt-2">Jumlah Rata - rata Kunjungan Pasien per Hari</p>
                     </div>
