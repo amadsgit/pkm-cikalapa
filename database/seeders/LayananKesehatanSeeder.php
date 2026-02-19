@@ -42,7 +42,7 @@ class LayananKesehatanSeeder extends Seeder
 
             $slug = Str::slug($data['nama_layanan']);
 
-            $layanan = Layanan::updateOrCreate(
+            $layanan = Layanan::Create(
                 ['slug' => $slug],
                 [
                     'kategori_id' => $kategori->id,
@@ -51,7 +51,7 @@ class LayananKesehatanSeeder extends Seeder
                 ]
             );
 
-            LayananPembayaran::updateOrCreate(
+            LayananPembayaran::Create(
                 [
                     'layanan_id' => $layanan->id,
                     'jenis_pembayaran_id' => $bpjs->id,
@@ -62,7 +62,7 @@ class LayananKesehatanSeeder extends Seeder
                 ]
             );
 
-            LayananPembayaran::updateOrCreate(
+            LayananPembayaran::Create(
                 [
                     'layanan_id' => $layanan->id,
                     'jenis_pembayaran_id' => $umum->id,
