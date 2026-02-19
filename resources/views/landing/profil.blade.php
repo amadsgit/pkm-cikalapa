@@ -13,21 +13,7 @@
             text-align: left;
         }
     </style>
-    <!-- Livewire Styles -->
-    <style>
 
-        :root {
-            --livewire-progress-bar-color: #2299dd;
-        }
-
-        [x-cloak] {
-            display: none !important;
-        }
-
-        [wire\:cloak] {
-            display: none !important;
-        }
-    </style>
     <style>
         /* Hide scrollbar for clean look */
         .scrollbar-hide::-webkit-scrollbar {
@@ -365,9 +351,6 @@
             });
         });
     </script>
-    <!-- Scripts -->
-    <script src="/livewire/livewire.min.js?id=df3a17f2" data-csrf="xpEHDwP3CiRtk2zuanYt6i2Wr5IzA6YSFSxCcp1Y"
-        data-update-uri="/livewire/update" data-navigate-once="true"></script>
 
     <!-- Enhanced Initialization Script -->
     <script>
