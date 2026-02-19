@@ -13,15 +13,15 @@ class LayananKesehatanSeeder extends Seeder
 {
     public function run(): void
     {
-        $kategori = KategoriLayanan::where('nama_kategori', 'Pelayanan Kesehatan')->first();
-        $bpjs = JenisPembayaran::where('nama', 'BPJS')->first();
-        $umum = JenisPembayaran::where('nama', 'Umum')->first();
+        // 1. Pastikan Kategori ada, jika tidak ada, buatkan saja otomatis
+        $kategori = KategoriLayanan::firstOrCreate(
+            ['nama_kategori' => 'Pelayanan Kesehatan'],
+            ['slug' => Str::slug('Pelayanan Kesehatan')]
+        );
 
-        if (! $kategori || ! $bpjs || ! $umum) {
-            $this->command->warn('Seeder kategori dan jenis pembayaran belum ada');
-
-            return;
-        }
+        // 2. Pastikan Jenis Pembayaran ada (Ini yang sering bikin skip)
+        $bpjs = JenisPembayaran::firstOrCreate(['nama' => 'BPJS']);
+        $umum = JenisPembayaran::firstOrCreate(['nama' => 'Umum']);
 
         $layanans = [
             [
@@ -39,10 +39,10 @@ class LayananKesehatanSeeder extends Seeder
         ];
 
         foreach ($layanans as $data) {
-
             $slug = Str::slug($data['nama_layanan']);
 
-            $layanan = Layanan::Create(
+            // Gunakan updateOrCreate: Parameter 1 untuk cari, Parameter 2 untuk isi data
+            $layanan = Layanan::updateOrCreate(
                 ['slug' => $slug],
                 [
                     'kategori_id' => $kategori->id,
@@ -51,7 +51,7 @@ class LayananKesehatanSeeder extends Seeder
                 ]
             );
 
-            LayananPembayaran::Create(
+            LayananPembayaran::updateOrCreate(
                 [
                     'layanan_id' => $layanan->id,
                     'jenis_pembayaran_id' => $bpjs->id,
@@ -62,7 +62,7 @@ class LayananKesehatanSeeder extends Seeder
                 ]
             );
 
-            LayananPembayaran::Create(
+            LayananPembayaran::updateOrCreate(
                 [
                     'layanan_id' => $layanan->id,
                     'jenis_pembayaran_id' => $umum->id,
@@ -74,6 +74,6 @@ class LayananKesehatanSeeder extends Seeder
             );
         }
 
-        $this->command->info('Seeder layanan kesehatan OK');
+        $this->command->info('Seeder layanan kesehatan BERHASIL dimasukkan.');
     }
 }
