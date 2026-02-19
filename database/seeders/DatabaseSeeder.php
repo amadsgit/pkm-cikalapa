@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             RoleUserSeeder::class,
             ProfilePuskesmasSeeder::class,
+            InformasiSeeder::class,
             BatasWilayahSeeder::class,
             KategoriInformasiSeeder::class,
             KategoriKegiatanSeeder::class,
