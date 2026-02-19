@@ -18,7 +18,13 @@
             <div class="p-6">
                 <div class="prose prose-emerald max-w-none text-gray-600">
                     <p class="text-gray-700 leading-relaxed text-base whitespace-pre-line">
-                    {{ $profile->sejarah->content ?? '-' }}
+                    @if($profile)
+                        {{ $profile->sejarah->content ?? '-' }}
+                    @else
+                    <div class="py-20 text-center">
+                        <p>Data profil puskesmas sedang dalam proses pembaharuan.</p>
+                    </div>
+                    @endif
                     </p>
                 </div>
             </div>

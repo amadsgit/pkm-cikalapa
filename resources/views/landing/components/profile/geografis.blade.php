@@ -13,8 +13,14 @@
                     </span>
                 </div>
             </div>
-            <p class="text-gray-600 ml-3">Informasi mengenai lokasi dan kondisi geografis wilayah kerja {{
-                $profile->nama_puskesmas }}</p>
+            @if($profile)
+                <p class="text-gray-600 ml-3">Informasi mengenai lokasi dan kondisi geografis wilayah kerja {{
+                    $profile->nama_puskesmas }}</p>
+            @else
+                <p class="py-20 text-center">
+                Data profil puskesmas sedang dalam proses pembaharuan.
+                </p>
+            @endif
         </div>
 
         <!-- Map and Info Section - Side by Side on Desktop -->
@@ -65,12 +71,18 @@
                             Wilayah</h3>
 
                         <div class="text-center">
-                            <div class="text-2xl font-bold text-emerald-600 mb-1">
-                                {{ number_format($profile->infoWilayah->luas_m2, 0, ',', '.') }} m²
+                            @if($profile)
+                                <div class="text-2xl font-bold text-emerald-600 mb-1">
+                                    {{ number_format($profile->infoWilayah->luas_m2, 0, ',', '.') }} m²
+                                </div>
+                                <div class="text-gray-500">
+                                    ({{ number_format($profile->infoWilayah->luas_hektar, 2, ',', '.') }} hektar)
+                                </div>
+                            @else
+                            <div class="py-20 text-center">
+                                <p>Data profil puskesmas sedang dalam proses pembaharuan.</p>
                             </div>
-                            <div class="text-gray-500">
-                                ({{ number_format($profile->infoWilayah->luas_hektar, 2, ',', '.') }} hektar)
-                            </div>
+                            @endif
                         </div>
                     </div>
 
@@ -85,7 +97,13 @@
                                     <div class="text-center">
                                         <i class="fas fa-home-alt text-emerald-600 text-xl mb-1"></i>
                                         <p class="text-xs font-medium text-emerald-800 line-clamp-1">
-                                            {{ $profile->nama_puskesmas }}</p>
+                                            @if($profile)
+                                                {{ $profile->nama_puskesmas }}</p>
+                                            @else
+                                            <div class="py-20 text-center">
+                                                <p>Data profil puskesmas sedang dalam proses pembaharuan.</p>
+                                            </div>
+                                            @endif
                                     </div>
                                 </div>
                             </div>
@@ -132,33 +150,45 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse(optional($profile->infoWilayah)->batasWilayah ?? [] as $batas)
-                                    <tr class="hover:bg-gray-50">
-                                        <td class="px-4 py-3 border border-gray-200 font-medium text-xs flex items-center">
-                                            @switch($batas->arah)
-                                            @case('Utara') <i class="fas fa-arrow-up text-emerald-500 mr-2"></i> Utara @break
-                                            @case('Timur') <i class="fas fa-arrow-right text-emerald-500 mr-2"></i> Timur @break
-                                            @case('Selatan') <i class="fas fa-arrow-down text-emerald-500 mr-2"></i> Selatan @break
-                                            @case('Barat') <i class="fas fa-arrow-left text-emerald-500 mr-2"></i> Barat @break
-                                            @default {{ $batas->arah }}
-                                            @endswitch
-                                        </td>
-                                        <td class="px-4 py-3 border border-gray-200 text-sm">
-                                            {{ $batas->berbatasan_dengan }}
-                                        </td>
-                                    </tr>
-                                    @empty
-                                    <tr>
-                                        <td colspan="2" class="text-center text-gray-500 py-3">Belum ada data batas wilayah</td>
-                                    </tr>
-                                    @endforelse
+                                    @if($profile)
+                                        @forelse(optional($profile->infoWilayah)->batasWilayah ?? [] as $batas)
+                                        <tr class="hover:bg-gray-50">
+                                            <td class="px-4 py-3 border border-gray-200 font-medium text-xs flex items-center">
+                                                @switch($batas->arah)
+                                                @case('Utara') <i class="fas fa-arrow-up text-emerald-500 mr-2"></i> Utara @break
+                                                @case('Timur') <i class="fas fa-arrow-right text-emerald-500 mr-2"></i> Timur @break
+                                                @case('Selatan') <i class="fas fa-arrow-down text-emerald-500 mr-2"></i> Selatan @break
+                                                @case('Barat') <i class="fas fa-arrow-left text-emerald-500 mr-2"></i> Barat @break
+                                                @default {{ $batas->arah }}
+                                                @endswitch
+                                            </td>
+                                            <td class="px-4 py-3 border border-gray-200 text-sm">
+                                                {{ $batas->berbatasan_dengan }}
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="2" class="text-center text-gray-500 py-3">Belum ada data batas wilayah</td>
+                                        </tr>
+                                        @endforelse
+                                    @else
+                                    <div class="py-20 text-center">
+                                        <p>Data profil puskesmas sedang dalam proses pembaharuan.</p>
+                                    </div>
+                                    @endif
                                 </tbody>
                             </table>
 
                             <div class="mt-4 bg-gray-50 p-3 rounded-md text-sm text-gray-600 border border-gray-100">
                                 <p class="font-medium text-gray-700 mb-1">Keterangan:
                                 </p>
-                                <p>Batas-batas wilayah sesuai dengan peta wilayah kerja {{ $profile->nama_puskesmas }}</p>
+                                @if($profile)
+                                    <p>Batas-batas wilayah sesuai dengan peta wilayah kerja {{ $profile->nama_puskesmas }}</p>
+                                @else
+                                <div class="py-20 text-center">
+                                    <p>Data profil puskesmas sedang dalam proses pembaharuan.</p>
+                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -218,52 +248,64 @@
                         </button>
         
                         <!-- Looping dari DB -->
-                        @foreach($profile->wilayahKerja as $wilayah)
-                        @php $slug = Str::slug($wilayah->nama, '-'); @endphp
-                        <button @click="activeKategori = '{{ $slug }}'"
-                            :class="{ 'bg-amber-500 text-white shadow-md': activeKategori === '{{ $slug }}', 'bg-white text-gray-700 hover:bg-gray-100': activeKategori !== '{{ $slug }}' }"
-                            class="shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors border border-gray-200 flex items-center">
-                            <i class="fas fa-tree-city mr-1.5 text-xs"></i>
-                            {{ $wilayah->nama }}
-                        </button>
-                        @endforeach
+                        @if($profile)
+                            @foreach($profile->wilayahKerja as $wilayah)
+                            @php $slug = Str::slug($wilayah->nama, '-'); @endphp
+                            <button @click="activeKategori = '{{ $slug }}'"
+                                :class="{ 'bg-amber-500 text-white shadow-md': activeKategori === '{{ $slug }}', 'bg-white text-gray-700 hover:bg-gray-100': activeKategori !== '{{ $slug }}' }"
+                                class="shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors border border-gray-200 flex items-center">
+                                <i class="fas fa-tree-city mr-1.5 text-xs"></i>
+                                {{ $wilayah->nama }}
+                            </button>
+                            @endforeach
+                        @else
+                        <div class="py-20 text-center">
+                            <p>Data profil puskesmas sedang dalam proses pembaharuan.</p>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
         
             <!-- Cards (sementara contoh statis dulu, nanti bisa dihubungkan ke tabel potensi_risiko) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                @foreach($profile->wilayahKerja as $wilayah)
-                @php $slug = Str::slug($wilayah->nama, '-'); @endphp
-                <div x-show="activeKategori === 'semua' || activeKategori === '{{ $slug }}'"
-                    x-transition:enter="transition ease-out duration-200"
-                    x-transition:enter-start="opacity-0 transform scale-95"
-                    x-transition:enter-end="opacity-100 transform scale-100"
-                    class="bg-gray-50 rounded-lg overflow-hidden shadow-sm border border-gray-100 group hover:shadow-md transition-all duration-300">
-        
-                    <!-- Header -->
-                    <div class="p-4 border-l-4 border-amber-500 text-amber-600 bg-white flex items-center">
-                        <i class="fas fa-notes-medical mr-3 text-lg"></i>
-                        <h4 class="text-lg font-medium text-gray-800 line-clamp-1">Potensi Risiko</h4>
-                    </div>
-        
-                    <!-- Content -->
-                    <div class="p-4">
-                        <div class="mb-3">
-                            <span
-                                class="text-xs font-medium bg-white px-2.5 py-1 rounded-full border border-amber-500 text-amber-600">
-                                {{ $wilayah->nama }}
-                            </span>
+                @if($profile)
+                    @foreach($profile->wilayahKerja as $wilayah)
+                    @php $slug = Str::slug($wilayah->nama, '-'); @endphp
+                    <div x-show="activeKategori === 'semua' || activeKategori === '{{ $slug }}'"
+                        x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0 transform scale-95"
+                        x-transition:enter-end="opacity-100 transform scale-100"
+                        class="bg-gray-50 rounded-lg overflow-hidden shadow-sm border border-gray-100 group hover:shadow-md transition-all duration-300">
+            
+                        <!-- Header -->
+                        <div class="p-4 border-l-4 border-amber-500 text-amber-600 bg-white flex items-center">
+                            <i class="fas fa-notes-medical mr-3 text-lg"></i>
+                            <h4 class="text-lg font-medium text-gray-800 line-clamp-1">Potensi Risiko</h4>
                         </div>
-                        <p class="text-gray-600 text-sm mb-3">Deskripsi potensi & masalah kesehatan masyarakat di {{
-                            $wilayah->nama }}.</p>
-                        <div class="flex items-start text-xs text-gray-500 pt-2 mt-2 border-t border-gray-100">
-                            <i class="fas fa-map-marker-alt mt-0.5 mr-2"></i>
-                            <span class="flex-1">Lokasi: {{ $wilayah->nama }}</span>
+            
+                        <!-- Content -->
+                        <div class="p-4">
+                            <div class="mb-3">
+                                <span
+                                    class="text-xs font-medium bg-white px-2.5 py-1 rounded-full border border-amber-500 text-amber-600">
+                                    {{ $wilayah->nama }}
+                                </span>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-3">Deskripsi potensi & masalah kesehatan masyarakat di {{
+                                $wilayah->nama }}.</p>
+                            <div class="flex items-start text-xs text-gray-500 pt-2 mt-2 border-t border-gray-100">
+                                <i class="fas fa-map-marker-alt mt-0.5 mr-2"></i>
+                                <span class="flex-1">Lokasi: {{ $wilayah->nama }}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                @endforeach
+                    @endforeach
+                @else
+                    <div class="py-20 text-center">
+                        <p>Data profil puskesmas sedang dalam proses pembaharuan.</p>
+                    </div>
+                @endif
             </div>
         
             <!-- Empty State -->

@@ -14,6 +14,7 @@
         </div>
 
         <!-- Image Slider for Thumbnails -->
+        @if($profile)
         <div x-data="{
                 currentIndex: 0,
                 total: {{ count($imagePuskesmas) }},
@@ -78,6 +79,11 @@
             <!-- Swipe Area -->
             <div class="absolute inset-0 z-10" x-on:touchstart="touchStart($event)" x-on:touchend="touchEnd($event)"></div>
         </div>
+        @else
+        <div class="py-20 text-center">
+            <p>Data profil puskesmas sedang dalam proses pembaharuan.</p>
+        </div>
+        @endif
     </div>
 
     <!-- Information Column -->

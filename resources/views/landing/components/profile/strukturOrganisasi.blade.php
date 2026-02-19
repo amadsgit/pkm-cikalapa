@@ -16,13 +16,19 @@
         <!-- Bagan Struktur -->
         <div class="mb-8">
             <div class="bg-gray-50 p-3 rounded-lg shadow-sm border border-gray-100">
-                @if ($profile->struktur && $profile->struktur->image)
-                <img src="{{ asset('storage/' . $profile->struktur->image) }}" alt="Bagan Struktur Organisasi Puskesmas"
-                    class="w-full h-auto object-contain rounded-lg">
+                @if($profile)
+                    @if ($profile->struktur && $profile->struktur->image)
+                    <img src="{{ asset('storage/' . $profile->struktur->image) }}" alt="Bagan Struktur Organisasi Puskesmas"
+                        class="w-full h-auto object-contain rounded-lg">
+                    @else
+                    <div class="text-center text-gray-500 py-10">
+                        <i class="fas fa-sitemap text-4xl mb-3"></i>
+                        <p>Bagan struktur belum tersedia</p>
+                    </div>
+                    @endif
                 @else
-                <div class="text-center text-gray-500 py-10">
-                    <i class="fas fa-sitemap text-4xl mb-3"></i>
-                    <p>Bagan struktur belum tersedia</p>
+                <div class="py-20 text-center">
+                    <p>Data profil puskesmas sedang dalam proses pembaharuan.</p>
                 </div>
                 @endif
             </div>

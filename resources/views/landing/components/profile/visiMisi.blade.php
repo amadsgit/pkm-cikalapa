@@ -19,7 +19,13 @@
             <div class="bg-gray-50 shadow-sm rounded-lg overflow-hidden border border-gray-100">
                 <div class="p-6">
                     <div class="prose prose-emerald max-w-none text-gray-600">
-                        <p>{{ $profile->visi->content ?? '-' }}</p>
+                        @if($profile)
+                            <p>{{ $profile->visi->content ?? '-' }}</p>
+                        @else
+                        <div class="py-20 text-center">
+                            <p>Data profil puskesmas sedang dalam proses pembaharuan.</p>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -44,9 +50,15 @@
                 <div class="p-6">
                     <div class="prose prose-emerald max-w-none text-gray-600">
                         <ol>
-                            @foreach ($profile->misi as $item)
-                            <li>{{ $item->content ?? '-'}}</li>
-                            @endforeach
+                            @if($profile)
+                                @foreach ($profile->misi as $item)
+                                <li>{{ $item->content ?? '-'}}</li>
+                                @endforeach
+                            @else
+                            <div class="py-20 text-center">
+                                <p>Data profil puskesmas sedang dalam proses pembaharuan.</p>
+                            </div>
+                            @endif
                         </ol>
                     </div>
                 </div>
