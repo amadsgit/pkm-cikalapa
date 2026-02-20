@@ -465,7 +465,7 @@
             
                         <form action="{{ route('visi.update') }}" method="POST">
                             @csrf
-                            @method('PUT')
+                            {{-- @method('PUT') --}}
                             <textarea x-model="visiContent" name="content" rows="6"
                                 class="w-full border border-gray-300 rounded-xl p-3 focus:ring-emerald-400 focus:border-emerald-400 placeholder-gray-400"
                                 placeholder="Tulis visi puskesmas di sini..."></textarea>

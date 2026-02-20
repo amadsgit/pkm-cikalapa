@@ -144,7 +144,7 @@ Route::prefix('dashboard/admin')
             Route::delete('/image/delete', [ProfileController::class, 'deleteImage'])
                 ->name('admin.imagePuskesmas.delete');
 
-            Route::put('/visi/update', [ProfileController::class, 'updateVisi'])
+            Route::post('/visi/update', [ProfileController::class, 'updateVisi'])
                 ->name('visi.update');
 
             Route::post('/misi/store', [ProfileController::class, 'storeMisi'])
