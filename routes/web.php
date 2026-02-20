@@ -144,19 +144,25 @@ Route::prefix('dashboard/admin')
             Route::delete('/image/delete', [ProfileController::class, 'deleteImage'])
                 ->name('admin.imagePuskesmas.delete');
 
+            // Route::put('/visi/update', [ProfileController::class, 'updateVisi'])
+            //     ->name('visi.update');
             Route::post('/visi/update', [ProfileController::class, 'updateVisi'])
                 ->name('visi.update');
 
             Route::post('/misi/store', [ProfileController::class, 'storeMisi'])
                 ->name('misi.store');
 
-            Route::put('/misi/update/{id}', [ProfileController::class, 'updateMisi'])
+            // Route::put('/misi/update/{id}', [ProfileController::class, 'updateMisi'])
+            //     ->name('misi.update');
+            Route::post('/misi/update/{id}', [ProfileController::class, 'updateMisi'])
                 ->name('misi.update');
 
             Route::delete('/misi/destroy/{id}', [ProfileController::class, 'destroyMisi'])
                 ->name('misi.destroy');
 
-            Route::put('/sejarah/update', [ProfileController::class, 'updateSejarah'])
+            // Route::put('/sejarah/update', [ProfileController::class, 'updateSejarah'])
+            //     ->name('sejarah.update');
+            Route::post('/sejarah/update', [ProfileController::class, 'updateSejarah'])
                 ->name('sejarah.update');
 
             Route::post('/struktur-organisasi/store', [ProfileController::class, 'storeStruktur'])
