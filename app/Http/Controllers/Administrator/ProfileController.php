@@ -106,7 +106,19 @@ class ProfileController extends Controller
     public function updateVisi(Request $request)
     {
         $request->validate(['content' => 'required|string']);
-        $visi = Visi::firstOrNew(['profile_puskesmas_id' => 1]);
+
+        // Ambil profil pertama yang tersedia
+        $profile = ProfilePuskesmas::first();
+
+        // Jika profil utamanya saja belum ada, kita buatkan dulu biar tidak error
+        if (! $profile) {
+            $profile = ProfilePuskesmas::create([
+                'nama_puskesmas' => 'Puskesmas Cikalapa', // Default name
+            ]);
+        }
+
+        // Gunakan ID dari profile yang ditemukan/dibuat
+        $visi = Visi::firstOrNew(['profile_puskesmas_id' => $profile->id]);
         $visi->content = $request->content;
         $visi->save();
 
@@ -146,7 +158,18 @@ class ProfileController extends Controller
     {
         $request->validate(['content' => 'required|string']);
 
-        $sejarah = SejarahPuskesmas::firstOrNew(['profile_puskesmas_id' => 1]);
+        // Ambil profil pertama yang ada di database
+        $profile = ProfilePuskesmas::first();
+
+        // Antisipasi jika data profile utamanya masih kosong di database
+        if (! $profile) {
+            $profile = ProfilePuskesmas::create([
+                'nama_puskesmas' => 'Puskesmas Cikalapa', // Nama default
+            ]);
+        }
+
+        // Gunakan ID dari profile yang ditemukan
+        $sejarah = SejarahPuskesmas::firstOrNew(['profile_puskesmas_id' => $profile->id]);
         $sejarah->content = $request->content;
         $sejarah->save();
 
