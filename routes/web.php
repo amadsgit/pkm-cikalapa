@@ -152,10 +152,10 @@ Route::prefix('dashboard/admin')
             Route::post('/misi/store', [ProfileController::class, 'storeMisi'])
                 ->name('misi.store');
 
-            // Route::put('/misi/update/{id}', [ProfileController::class, 'updateMisi'])
-            //     ->name('misi.update');
-            Route::post('/misi/update/{id}', [ProfileController::class, 'updateMisi'])
+            Route::put('/misi/update/{id}', [ProfileController::class, 'updateMisi'])
                 ->name('misi.update');
+            // Route::post('/misi/update/{id}', [ProfileController::class, 'updateMisi'])
+            //     ->name('misi.update');
 
             Route::delete('/misi/destroy/{id}', [ProfileController::class, 'destroyMisi'])
                 ->name('misi.destroy');

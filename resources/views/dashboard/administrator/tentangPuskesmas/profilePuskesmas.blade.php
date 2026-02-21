@@ -437,7 +437,7 @@
                                     </h3>
                                     <form :action="`/misi/update/${editMisiId}`" method="POST">
                                         @csrf
-                                        {{-- @method('PUT') --}}
+                                        @method('PUT')
                                         <textarea x-model="editMisiContent" name="content" rows="4"
                                             class="w-full border border-gray-300 rounded-xl p-3 focus:ring-emerald-400 focus:border-emerald-400"></textarea>
                                         <div class="flex justify-end gap-3 mt-5">
