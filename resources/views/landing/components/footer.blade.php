@@ -99,10 +99,14 @@
 
         <!-- Divider -->
         <div class="mt-12 border-t border-white/20 pt-6 flex flex-col md:flex-row items-center justify-between">
-            <p class="text-sm text-emerald-50">&copy; 2026 | UPTD Puskesmas Cikalapa Kabupaten Subang. All Right Reserve. 
-                build with <i class="fa fa-heart" style="color: red;"></i> 
-                by <a href="https://www.instagram.com/m2d.ahm/" target="_blank">Ma2d Ahmad</a> <br> <span class="pt-1">DISKOMINFO KAB.SUBANG</span></p>
-            <div class="mt-4 md:mt-0 flex space-x-4">
+            <p class="text-sm text-emerald-50">
+                &copy; <span id="year"></span> | UPTD Puskesmas Cikalapa Kabupaten Subang. All Right Reserve.
+                build with <i class="fa fa-heart" style="color: red;"></i>
+                by <a href="https://www.instagram.com/m2d.ahm/" target="_blank">Ma2d Ahmad</a> <br>
+                <span class="pt-1">DISKOMINFO KAB.SUBANG</span>
+            </p>
+            
+            <div class="mt-4 md:mt-0 flex space-x-4"></div>
                 <a href="#" class="hover:text-sky-200 transition"><i class="fab fa-facebook-f"></i></a>
                 <a href="#" class="hover:text-sky-200 transition"><i class="fab fa-twitter"></i></a>
                 <a href="#" class="hover:text-sky-200 transition"><i class="fab fa-instagram"></i></a>
@@ -111,6 +115,9 @@
     </div>
 </footer>
 
+<script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
     const backToTopButton = document.getElementById('back-to-top');
