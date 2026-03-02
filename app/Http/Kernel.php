@@ -2,11 +2,15 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\WhitelistPentester;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
 {
     protected $middleware = [
+        // AKTIFKAN HANYA SAAT PENTEST
+        WhitelistPentester::class,
+
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
         \Illuminate\Http\Middleware\HandleCors::class,
