@@ -135,6 +135,19 @@
                                             @endforeach
                                         </select>
                                     </div>
+
+                                    {{-- Password (Opsional) --}}
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-700">
+                                            Password Baru
+                                        </label>
+                                        <input type="password" name="password"
+                                            class="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                    
+                                        <p class="text-xs text-gray-500 mt-1">
+                                            Kosongkan jika tidak ingin mengganti password
+                                        </p>
+                                    </div>
                     
                                 </div>
                     

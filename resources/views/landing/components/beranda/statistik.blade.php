@@ -32,7 +32,7 @@
                         <i class="fas fa-user-friends mr-2 text-emerald-500"></i> Pasien Peserta BPJS
                     </div>
                     <div class="mt-4">
-                        <h3 class="text-4xl md:text-5xl font-bold text-white"><i class="fa-solid fa-plus-minus"></i> 2850 <span
+                        <h3 class="text-4xl md:text-5xl font-bold text-white"><i class="fa-solid fa-plus-minus"></i> 24675 <span
                                 class="text-sm ml-2">orang</span></h3>
                         <p class="text-white/70 mt-2">Total Pasien Terdaftar</p>
                     </div>
@@ -92,7 +92,7 @@
                         <i class="fas fa-calendar-alt mr-2 text-emerald-500"></i> Kunjungan Harian
                     </div>
                     <div class="mt-4">
-                        <h3 class="text-4xl md:text-5xl font-bold text-white"><i class="fa-solid fa-plus-minus"></i> 120 <span
+                        <h3 class="text-4xl md:text-5xl font-bold text-white"><i class="fa-solid fa-plus-minus"></i> 100 <span
                                 class="text-sm ml-2">kunjungan</span></h3>
                         <p class="text-white/70 mt-2">Jumlah Rata - rata Kunjungan Pasien per Hari</p>
                     </div>

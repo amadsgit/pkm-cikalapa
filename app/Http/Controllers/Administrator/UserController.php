@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Administrator;
 
+use App\Http\Controllers\Controller;
+use App\Models\Pegawai;
 use App\Models\Role;
 use App\Models\User;
-use App\Models\Pegawai;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -16,7 +16,7 @@ class UserController extends Controller
         $users = User::with(['pegawai', 'roles'])->latest()->paginate(5); // eager load relasi
 
         // Ambil list pegawai yang belum punya user
-        $listPegawai = Pegawai::whereNotIn('id', function($query) {
+        $listPegawai = Pegawai::whereNotIn('id', function ($query) {
             $query->select('pegawai_id')->from('users');
         })->orderBy('nama_pegawai', 'asc')->get();
 
@@ -29,19 +29,19 @@ class UserController extends Controller
     {
         $request->validate([
             'pegawai_id' => 'required|exists:pegawai,id|unique:users,pegawai_id',
-            'nip'        => 'required|string|max:18|unique:users,nip',
-            'email'      => 'required|email|max:50|unique:users,email',
-            'password'   => 'required|string|min:8',
-            'roles'      => 'required|array',
-            'roles.*'    => 'exists:roles,id',
+            'nip' => 'required|string|max:18|unique:users,nip',
+            'email' => 'required|email|max:50|unique:users,email',
+            'password' => 'required|string|min:8',
+            'roles' => 'required|array',
+            'roles.*' => 'exists:roles,id',
         ]);
 
         // Buat user baru
         $user = User::create([
             'pegawai_id' => $request->pegawai_id,
-            'nip'        => $request->nip,
-            'email'      => $request->email,
-            'password'   => Hash::make($request->password),
+            'nip' => $request->nip,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
         // Simpan role di pivot table
@@ -50,28 +50,34 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'User berhasil ditambahkan. ✅');
     }
 
-
     public function update(Request $request, $id)
     {
         $user = User::findOrFail($id);
 
         // Validasi input
         $request->validate([
-            'email' => 'required|email|max:50|unique:users,email,' . $user->id,
+            'email' => 'required|email|max:50|unique:users,email,'.$user->id,
+            'password' => 'nullable|string|min:8',
             'roles' => 'required|array',
             'roles.*' => 'exists:roles,id',
         ]);
 
         // Update email
         $user->email = $request->email;
+
+        // Jika password diisi maka update
+        if ($request->filled('password')) {
+            $user->password = Hash::make($request->password);
+        }
+
         $user->save();
 
-        // Update roles (sync pivot table)
+        // Update role
         $user->roles()->sync($request->roles);
 
-        return redirect()->route('users.index')->with('success', 'User berhasil diupdate. ✅');
+        return redirect()->route('users.index')
+            ->with('success', 'User berhasil diupdate. ✅');
     }
-
 
     public function destroy($id)
     {

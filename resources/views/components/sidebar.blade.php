@@ -89,7 +89,7 @@
                                         : 'text-gray-700 hover:bg-sky-50 hover:text-sky-600' }}">
                         <i class="ph ph-pencil text-[15px]"></i> Berita & Informasi
                     </a>
-                    <a href="#" class="block py-2 rounded-lg px-3 transition 
+                    <a href="{{ route("kategoriInformasi.index") }}" class="block py-2 rounded-lg px-3 transition 
                                     {{ request()->routeIs('informasiPublik.kategori*') 
                                         ? 'bg-emerald-100 text-sky-600 font-semibold shadow-sm' 
                                         : 'text-gray-700 hover:bg-sky-50 hover:text-sky-600' }}">
@@ -114,7 +114,7 @@
                                         : 'text-gray-700 hover:bg-sky-50 hover:text-sky-600' }}">
                         <i class="ph ph-pencil text-[15px]"></i> Agenda Kegiatan
                     </a>
-                    <a href="#" class="block py-2 rounded-lg px-3 transition 
+                    <a href="{{ route("kategoriKegiatan.index") }}" class="block py-2 rounded-lg px-3 transition 
                                     {{ request()->routeIs('agendaKegiatan.kategori*') 
                                         ? 'bg-emerald-100 text-sky-600 font-semibold shadow-sm' 
                                         : 'text-gray-700 hover:bg-sky-50 hover:text-sky-600' }}">
@@ -207,10 +207,10 @@
             </details>
 
             <!-- Label -->
-            <p class="px-6 mt-4 text-xs font-semibold text-black uppercase tracking-wider">Email Client</p>
+            {{-- <p class="px-6 mt-4 text-xs font-semibold text-black uppercase tracking-wider">Email Client</p> --}}
 
             <!-- Email -->
-            <details class="group">
+            {{-- <details class="group">
                 <summary
                     class="flex items-center gap-3 px-6 py-3 cursor-pointer rounded-lg text-gray-700 hover:bg-sky-50 hover:text-sky-600 transition">
                     <i class="ph ph-envelope-simple text-lg"></i>
@@ -222,7 +222,7 @@
                     <a href="#" class="block py-2 hover:text-sky-600">📖 Read</a>
                     <a href="#" class="block py-2 hover:text-sky-600">📥 Inbox</a>
                 </div>
-            </details>
+            </details> --}}
             @endif
         </nav>
     </div>

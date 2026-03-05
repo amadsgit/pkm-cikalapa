@@ -27,22 +27,30 @@
 
         <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl shadow">
             <p class="text-sm text-gray-600">Jumlah Pegawai</p>
-            <h2 class="text-3xl font-bold text-emerald-600 mt-2">-</h2>
+            <h2 class="text-3xl font-bold text-emerald-600 mt-2">
+                {{ $jumlahPegawai }}
+            </h2>
         </div>
 
         <div class="bg-sky-50 border border-sky-200 p-5 rounded-xl shadow">
             <p class="text-sm text-gray-600">Tenaga Medis Aktif</p>
-            <h2 class="text-3xl font-bold text-sky-600 mt-2">-</h2>
+            <h2 class="text-3xl font-bold text-sky-600 mt-2">
+                {{ $tenagaMedisAktif }}
+            </h2>
         </div>
 
         <div class="bg-yellow-50 border border-yellow-200 p-5 rounded-xl shadow">
             <p class="text-sm text-gray-600">Jumlah Informasi Publik</p>
-            <h2 class="text-3xl font-bold text-yellow-600 mt-2">-</h2>
+            <h2 class="text-3xl font-bold text-yellow-600 mt-2">
+                {{ $jumlahInformasi }}
+            </h2>
         </div>
 
         <div class="bg-red-50 border border-red-200 p-5 rounded-xl shadow">
             <p class="text-sm text-gray-600">Jumlah Layanan Kesehatan Publik</p>
-            <h2 class="text-3xl font-bold text-red-600 mt-2">-</h2>
+            <h2 class="text-3xl font-bold text-red-600 mt-2">
+                {{ $jumlahLayanan }}
+            </h2>
         </div>
     </div>
 

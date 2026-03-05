@@ -13,6 +13,8 @@ use App\Http\Controllers\Administrator\RoleController;
 use App\Http\Controllers\Administrator\UserController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Author\DashboardAuthorController;
+use App\Http\Controllers\KategoriInformasiController;
+use App\Http\Controllers\KategoriKegiatanController;
 use App\Http\Controllers\Landing\AgendaLandingController;
 use App\Http\Controllers\Landing\BerandaController;
 use App\Http\Controllers\Landing\InformasiLandingController;
@@ -21,6 +23,7 @@ use App\Http\Controllers\Landing\ProfilLandingController;
 use App\Http\Controllers\Landing\RegisterController;
 use App\Http\Controllers\PdfDukController;
 use App\Http\Controllers\PdfNominatifController;
+use App\Http\Controllers\ProfileUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,6 +67,9 @@ Route::prefix('dashboard/admin')
         // Dashboard
         Route::get('/', [DashboardAdminController::class, 'index'])
             ->name('dashboard.admin');
+
+        Route::get('/profile', [ProfileUserController::class, 'index'])
+            ->name('profile.user');
 
         /*
         |--------------------------------------------------------------------------
@@ -211,6 +217,18 @@ Route::prefix('dashboard')
     ->middleware(['auth', 'role:administrator,author'])
     ->group(function () {
 
+        Route::get('/kategori-informasi', [KategoriInformasiController::class, 'index'])
+            ->name('kategoriInformasi.index');
+
+        Route::post('/kategori-informasi/store', [KategoriInformasiController::class, 'store'])
+            ->name('kategoriInformasi.store');
+
+        Route::put('/kategori-informasi/update/{id}', [KategoriInformasiController::class, 'update'])
+            ->name('kategoriInformasi.update');
+
+        Route::delete('/kategori-informasi/delete/{id}', [KategoriInformasiController::class, 'destroy'])
+            ->name('kategoriInformasi.destroy');
+
         Route::get('/informasi-publik', [InformasiController::class, 'index'])
             ->name('informasiPublik.index');
 
@@ -228,6 +246,18 @@ Route::prefix('dashboard')
 
         Route::delete('/agenda-kegiatan/delete/{id}', [AgendaController::class, 'destroy'])
             ->name('agendaKegiatan.destroy');
+
+        Route::get('/kategori-kegiatan', [KategoriKegiatanController::class, 'index'])
+            ->name('kategoriKegiatan.index');
+
+        Route::post('/kategori-kegiatan/store', [KategoriKegiatanController::class, 'store'])
+            ->name('kategoriKegiatan.store');
+
+        Route::put('/kategori-kegiatan/update/{id}', [KategoriKegiatanController::class, 'update'])
+            ->name('kategoriKegiatan.update');
+
+        Route::delete('/kategori-kegiatan/delete/{id}', [KategoriKegiatanController::class, 'destroy'])
+            ->name('kategoriKegiatan.destroy');
     });
 
 Route::prefix('dashboard')

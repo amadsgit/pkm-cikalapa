@@ -36,8 +36,8 @@
         <!-- DROPDOWN -->
         <div x-show="openUser" @click.away="openUser = false" x-transition
             class="absolute right-0 mt-3 w-52 bg-white rounded-xl shadow-lg py-2 z-50">
-            <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-emerald-100"> <i class="ph ph-user"></i> Profil Saya </a>
-            <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-emerald-100"> <i class="ph ph-gear"></i> Pengaturan </a>
+            <a href="{{ route('profile.user') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-emerald-100"> <i class="ph ph-user"></i> Profil Saya </a>
+            {{-- <a href="#" class="flex items-center gap-2 px-4 py-2 hover:bg-emerald-100"> <i class="ph ph-gear"></i> Pengaturan </a> --}}
             <button @click="openUser = false; openLogout = true"
                 class="flex items-center gap-2 w-full px-4 py-2 text-red-600 hover:bg-red-100">
                 <i class="ph ph-sign-out"></i> Keluar

@@ -88,8 +88,8 @@
         <!-- Link tambahan -->
         <div class="mt-6 flex justify-between text-sm">
             <a href="{{ url('/') }}" class="text-teal-600 hover:text-teal-800 font-medium">← Kembali ke Beranda</a>
-            <a href="#" class="text-teal-600 hover:text-teal-800 font-medium">Lupa
-                Password?</a>
+            {{-- <a href="#" class="text-teal-600 hover:text-teal-800 font-medium">Lupa
+                Password?</a> --}}
             {{-- <a href="{{ route('password.request') }}" class="text-teal-600 hover:text-teal-800 font-medium">Lupa
                 Password?</a> --}}
         </div>
