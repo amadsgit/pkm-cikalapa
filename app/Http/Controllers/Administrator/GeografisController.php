@@ -102,4 +102,51 @@ class GeografisController extends Controller
 
         return back()->with('success', 'Data luas wilayah berhasil dihapus.');
     }
+
+    public function storeBatasWilayah(Request $request)
+    {
+        $request->validate([
+            'arah' => 'required|string|max:50',
+            'berbatasan_dengan' => 'required|string|max:150',
+            'keterangan' => 'nullable|string|max:255',
+        ]);
+
+        $profile = ProfilePuskesmas::firstOrFail();
+
+        BatasWilayah::create([
+            'profile_puskesmas_id' => $profile->id,
+            'arah' => $request->arah,
+            'berbatasan_dengan' => $request->berbatasan_dengan,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return back()->with('success', 'Data batas wilayah berhasil ditambahkan.');
+    }
+
+    public function updateBatasWilayah(Request $request, $id)
+    {
+        $request->validate([
+            'arah' => 'required|string|max:50',
+            'berbatasan_dengan' => 'required|string|max:150',
+            'keterangan' => 'nullable|string|max:255',
+        ]);
+
+        $batas = BatasWilayah::findOrFail($id);
+
+        $batas->update([
+            'arah' => $request->arah,
+            'berbatasan_dengan' => $request->berbatasan_dengan,
+            'keterangan' => $request->keterangan,
+        ]);
+
+        return back()->with('success', 'Data batas wilayah berhasil diperbarui.');
+    }
+
+    public function deleteBatasWilayah($id)
+    {
+        $batas = BatasWilayah::findOrFail($id);
+        $batas->delete();
+
+        return back()->with('success', 'Data batas wilayah berhasil dihapus.');
+    }
 }

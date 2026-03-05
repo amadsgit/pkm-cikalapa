@@ -347,23 +347,154 @@
                 </div>
             </div>
 
-            <!-- Tab: Batas Wilayah -->
-            <div x-show="activeTab === 'batas-wilayah'" x-transition x-data="{ openModal: false, previewUrl: null }">
+           <!-- Tab: Batas Wilayah -->
+            <div x-show="activeTab === 'batas-wilayah'" x-transition
+                x-data="{ openModal: false, editMode: false, formData: { id: '', arah: '', wilayah: '' } }">
+            
                 <h2 class="text-xl font-semibold text-gray-700 mb-4 flex items-center gap-2">
                     <i class="ph ph-compass text-emerald-500 text-lg"></i>
                     Batas Wilayah
                 </h2>
+            
                 <div class="bg-white rounded-2xl p-5 shadow-sm border border-gray-100 relative overflow-hidden">
-
-                    
-                    <!-- Background Accent -->
-                    <div
-                        class="absolute top-0 right-0 w-20 h-20 bg-emerald-100 rounded-bl-full opacity-40 pointer-events-none">
+            
+                    <!-- Tombol Tambah -->
+                    <div class="flex justify-end mb-4">
+                        <button @click="openModal = true; editMode = false; formData = { id: '', arah: '', wilayah: '' }"
+                            class="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 flex items-center gap-2 transition">
+                            <i class="ph ph-plus-circle text-lg"></i> Tambah Batas
+                        </button>
+                    </div>
+            
+                    <!-- Tabel -->
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full text-sm text-gray-700 border border-gray-100 rounded-lg overflow-hidden">
+                            <thead class="bg-gray-50 border-b border-gray-100 text-gray-600">
+                                <tr>
+                                    <th class="py-3 px-4 text-left">No</th>
+                                    <th class="py-3 px-4 text-left">Arah</th>
+                                    <th class="py-3 px-4 text-left">Wilayah Berbatasan</th>
+                                    <th class="py-3 px-4 text-center w-32">Aksi</th>
+                                </tr>
+                            </thead>
+            
+                            <tbody>
+                                @forelse($profile?->batasWilayah ?? [] as $index => $batas)
+                                <tr class="border-b hover:bg-gray-50">
+                                    <td class="py-2 px-4">{{ $index + 1 }}</td>
+                                    <td class="py-2 px-4 capitalize">{{ $batas->arah }}</td>
+                                    <td class="py-2 px-4">{{ $batas->berbatasan_dengan }}</td>
+            
+                                    <td class="py-2 px-4 text-center">
+                                        <div class="flex justify-center gap-2">
+            
+                                            <!-- Edit -->
+                                            <button @click="openModal = true; editMode = true; formData = {
+                                                    id: '{{ $batas->id }}',
+                                                    arah: '{{ $batas->arah }}',
+                                                    wilayah: '{{ $batas->berbatasan_dengan }}'
+                                                }" class="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition">
+                                                <i class="ph ph-pencil-simple text-base"></i>
+                                            </button>
+            
+                                            <!-- Delete -->
+                                            <form action="{{ route('batasWilayah.delete', $batas->id) }}" method="POST"
+                                                onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+            
+                                                @csrf
+                                                @method('DELETE')
+            
+                                                <button type="submit"
+                                                    class="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition">
+                                                    <i class="ph ph-trash text-base"></i>
+                                                </button>
+                                            </form>
+            
+                                        </div>
+                                    </td>
+                                </tr>
+            
+                                @empty
+                                <tr>
+                                    <td colspan="4" class="py-4 text-center text-gray-500 italic">
+                                        Belum ada data batas wilayah
+                                    </td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+            
+                        </table>
+                    </div>
+            
+                    <!-- Accent -->
+                    <div class="absolute top-0 right-0 w-20 h-20 bg-emerald-100 rounded-bl-full opacity-40 pointer-events-none">
+                    </div>
+                </div>
+            
+                <!-- Modal -->
+                <div x-show="openModal" x-cloak class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+            
+                    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 relative">
+            
+                        <!-- Close -->
+                        <button @click="openModal = false"
+                            class="absolute top-3 right-3 bg-gray-100 rounded-full p-2 hover:bg-gray-200">
+                            <i class="ph ph-x text-gray-600 text-lg"></i>
+                        </button>
+            
+                        <h3 class="text-lg font-semibold text-gray-700 mb-4 flex items-center gap-2">
+                            <i class="ph ph-compass text-emerald-500"></i>
+                            <span x-text="editMode ? 'Edit Batas Wilayah' : 'Tambah Batas Wilayah'"></span>
+                        </h3>
+            
+                        <form :action="editMode
+                                ? '{{ route('batasWilayah.update', '') }}/' + formData.id
+                                : '{{ route('batasWilayah.store') }}'" method="POST" class="space-y-4">
+            
+                            @csrf
+            
+                            <template x-if="editMode">
+                                <input type="hidden" name="_method" value="PUT">
+                            </template>
+            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Arah</label>
+            
+                                <select name="arah" x-model="formData.arah" required
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-emerald-400 focus:border-emerald-400">
+            
+                                    <option value="">Pilih Arah</option>
+                                    <option value="utara">Utara</option>
+                                    <option value="selatan">Selatan</option>
+                                    <option value="timur">Timur</option>
+                                    <option value="barat">Barat</option>
+            
+                                </select>
+                            </div>
+            
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Wilayah Berbatasan</label>
+            
+                                <input type="text" name="wilayah" x-model="formData.wilayah" required
+                                    class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-emerald-400 focus:border-emerald-400">
+                            </div>
+            
+                            <div class="flex justify-end gap-3">
+                                <button type="button" @click="openModal = false"
+                                    class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+                                    Batal
+                                </button>
+            
+                                <button type="submit" class="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600">
+                                    <i class="ph ph-floppy-disk text-lg"></i> Simpan
+                                </button>
+                            </div>
+            
+                        </form>
+            
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
