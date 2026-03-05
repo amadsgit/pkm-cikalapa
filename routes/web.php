@@ -23,6 +23,7 @@ use App\Http\Controllers\Landing\ProfilLandingController;
 use App\Http\Controllers\Landing\RegisterController;
 use App\Http\Controllers\PdfDukController;
 use App\Http\Controllers\PdfNominatifController;
+use App\Http\Controllers\ProfileUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
