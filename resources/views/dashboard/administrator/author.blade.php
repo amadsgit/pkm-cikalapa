@@ -27,12 +27,12 @@
 
         <div class="bg-emerald-50 border border-emerald-200 p-5 rounded-xl shadow">
             <p class="text-sm text-gray-600">Jumlah Informasi Publik</p>
-            <h2 class="text-3xl font-bold text-emerald-600 mt-2">-</h2>
+            <h2 class="text-3xl font-bold text-emerald-600 mt-2">{{ $jumlahInformasi }}</h2> 
         </div>
 
         <div class="bg-sky-50 border border-sky-200 p-5 rounded-xl shadow">
             <p class="text-sm text-gray-600">Jumlah Agenda Kegiatan</p>
-            <h2 class="text-3xl font-bold text-sky-600 mt-2">-</h2>
+            <h2 class="text-3xl font-bold text-sky-600 mt-2">{{ $jumlahKegiatan }}</h2>
         </div>
 
     </div>
