@@ -349,7 +349,7 @@
 
            <!-- Tab: Batas Wilayah -->
             <div x-show="activeTab === 'batas-wilayah'" x-transition
-                x-data="{ openModal: false, editMode: false, formData: { id: '', arah: '', wilayah: '' } }">
+                x-data="{ openModal: false, editMode: false, formData: { id: '', arah: '', berbatasan_dengan: '' } }">
             
                 <h2 class="text-xl font-semibold text-gray-700 mb-4 flex items-center gap-2">
                     <i class="ph ph-compass text-emerald-500 text-lg"></i>
@@ -360,12 +360,12 @@
             
                     <!-- Tombol Tambah -->
                     <div class="flex justify-end mb-4">
-                        <button @click="openModal = true; editMode = false; formData = { id: '', arah: '', wilayah: '' }"
+                        <button @click="openModal = true; editMode = false; formData = { id: '', arah: '', berbatasan_dengan: '' }"
                             class="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 flex items-center gap-2 transition">
                             <i class="ph ph-plus-circle text-lg"></i> Tambah Batas
                         </button>
                     </div>
-            
+             
                     <!-- Tabel -->
                     <div class="overflow-x-auto">
                         <table class="min-w-full text-sm text-gray-700 border border-gray-100 rounded-lg overflow-hidden">
@@ -475,7 +475,7 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-1">Wilayah Berbatasan</label>
             
-                                <input type="text" name="wilayah" x-model="formData.wilayah" required
+                                <input type="text" name="berbatasan_dengan" x-model="formData.berbatasan_dengan" required
                                     class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-emerald-400 focus:border-emerald-400">
                             </div>
             

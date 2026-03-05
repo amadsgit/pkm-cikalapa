@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Administrator;
 
 use App\Http\Controllers\Controller;
+use App\Models\BatasWilayah;
 use App\Models\InfoWilayah;
 use App\Models\ProfilePuskesmas;
 use App\Models\WilayahKerja;

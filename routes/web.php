@@ -177,14 +177,6 @@ Route::prefix('dashboard/admin')
             Route::delete('/struktur-organisasi/delete', [ProfileController::class, 'deleteStruktur'])
                 ->name('strukturOrganisasi.delete');
 
-            Route::post('/batas-wilayah/store', [GeografisController::class, 'storeBatasWilayah'])
-                ->name('batasWilayah.store');
-
-            Route::put('/batas-wilayah/update/{id}', [GeografisController::class, 'updateBatasWilayah'])
-                ->name('batasWilayah.update');
-
-            Route::delete('/batas-wilayah/delete/{id}', [GeografisController::class, 'deleteBatasWilayah'])
-                ->name('batasWilayah.delete');
         });
 
         /*
@@ -214,6 +206,15 @@ Route::prefix('dashboard/admin')
 
             Route::delete('/luas/delete/{id}', [GeografisController::class, 'deleteLuasWilayah'])
                 ->name('luasWilayah.delete');
+
+            Route::post('/batas-wilayah/store', [GeografisController::class, 'storeBatasWilayah'])
+                ->name('batasWilayah.store');
+
+            Route::put('/batas-wilayah/update/{id}', [GeografisController::class, 'updateBatasWilayah'])
+                ->name('batasWilayah.update');
+
+            Route::delete('/batas-wilayah/delete/{id}', [GeografisController::class, 'deleteBatasWilayah'])
+                ->name('batasWilayah.delete');
         });
     });
 
