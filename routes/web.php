@@ -23,7 +23,6 @@ use App\Http\Controllers\Landing\ProfilLandingController;
 use App\Http\Controllers\Landing\RegisterController;
 use App\Http\Controllers\PdfDukController;
 use App\Http\Controllers\PdfNominatifController;
-use App\Http\Controllers\ProfileUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -67,9 +66,6 @@ Route::prefix('dashboard/admin')
         // Dashboard
         Route::get('/', [DashboardAdminController::class, 'index'])
             ->name('dashboard.admin');
-
-        Route::get('/profile', [ProfileUserController::class, 'index'])
-            ->name('profile.user');
 
         /*
         |--------------------------------------------------------------------------
@@ -226,6 +222,9 @@ Route::prefix('dashboard/admin')
 Route::prefix('dashboard')
     ->middleware(['auth', 'role:administrator,author'])
     ->group(function () {
+
+        Route::get('/profile', [ProfileUserController::class, 'index'])
+            ->name('profile.user');
 
         Route::get('/kategori-informasi', [KategoriInformasiController::class, 'index'])
             ->name('kategoriInformasi.index');
