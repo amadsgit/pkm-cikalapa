@@ -24,6 +24,7 @@
         <table class="min-w-full text-sm">
             <thead class="bg-gray-50 text-gray-600">
                 <tr>
+                    <th class="px-4 py-3 text-left">No</th>
                     <th class="px-4 py-3 text-left">Nama</th>
                     <th class="px-4 py-3 text-left">Slug</th>
                     <th class="px-4 py-3 text-center">Aksi</th>
@@ -35,6 +36,10 @@
                 @foreach($kategori as $k)
                 <tr class="border-t">
 
+                    <td class="px-4 py-3">
+                        {{ $loop->iteration + ($kategori->currentPage() - 1) * $kategori->perPage() }}
+                    </td>
+                    
                     <td class="px-4 py-3 font-medium">
                         {{ $k->nama }}
                     </td>
@@ -121,6 +126,9 @@
 
             </tbody>
         </table>
+    </div>
+    <div class="mt-3">
+        {{ $kategori->links() }}
     </div>
 
 </div>

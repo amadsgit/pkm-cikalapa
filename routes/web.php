@@ -231,7 +231,8 @@ Route::prefix('dashboard')
             ->name('kategoriInformasi.index');
 
         Route::post('/kategori-informasi/store', [KategoriInformasiController::class, 'store'])
-            ->name('kategoriInformasi.store');
+            ->name('kategoriInformasi.store')
+            ->middleware('throttle:30,1'); // 30 request per menit;
 
         Route::put('/kategori-informasi/update/{id}', [KategoriInformasiController::class, 'update'])
             ->name('kategoriInformasi.update');
@@ -261,7 +262,8 @@ Route::prefix('dashboard')
             ->name('kategoriKegiatan.index');
 
         Route::post('/kategori-kegiatan/store', [KategoriKegiatanController::class, 'store'])
-            ->name('kategoriKegiatan.store');
+            ->name('kategoriKegiatan.store')
+            ->middleware('throttle:30,1'); // 30 request per menit
 
         Route::put('/kategori-kegiatan/update/{id}', [KategoriKegiatanController::class, 'update'])
             ->name('kategoriKegiatan.update');
