@@ -52,6 +52,7 @@
                     <table class="min-w-full text-sm">
                         <thead class="bg-gray-50 text-gray-600">
                             <tr>
+                                <th class="px-4 py-3 text-left">No</th>
                                 <th class="px-4 py-3 text-left">Judul</th>
                                 <th class="px-4 py-3">Kategori</th>
                                 <th class="px-4 py-3">Tanggal</th>
@@ -63,6 +64,9 @@
                         <tbody>
                             @foreach($agenda as $item)
                             <tr class="border-t">
+                                <td class="px-4 py-3 font-medium">
+                                    {{ $loop->iteration + ($agenda->currentPage() - 1) * $agenda->perPage() }}
+                                </td>
                                 <td class="px-4 py-3 font-medium">{{ $item->judul }}</td>
                                 <td class="px-4 py-3">{{ $item->kategori->nama ?? '-' }}</td>
                                 <td class="px-4 py-3">{{ $item->tanggal }}</td>
@@ -71,6 +75,11 @@
                                     {{ $item->author->pegawai->nama_pegawai ?? $item->author->name ?? '-' }}
                                 </td>
                                 <td class="px-4 py-3 text-center flex justify-center gap-2">
+
+                                    <a href="{{ route('agendaKegiatan.edit', $item->id) }}"
+                                        class="p-2 bg-emerald-50 text-emerald-600 rounded-lg hover:bg-emerald-100">
+                                        <i class="ph ph-pencil-simple"></i>
+                                    </a>
 
                                     <form action="{{ route('agendaKegiatan.destroy', $item->id) }}" method="POST"
                                         onsubmit="return confirm('Hapus agenda kegiatan ini?')">
@@ -94,6 +103,9 @@
                             @endif
                         </tbody>
                     </table>
+                </div>
+                <div class="mt-3">
+                    {{ $agenda->links() }}
                 </div>
             </div>
 

@@ -19,7 +19,7 @@ class InformasiController extends Controller
     {
         $informasi = Informasi::with(['kategori', 'author'])
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(5);
         $kategori = KategoriInformasi::orderBy('nama')->get();
 
         return view('dashboard.administrator.informasiPublik.informasiPublik', compact('informasi', 'kategori'));
@@ -66,5 +66,52 @@ class InformasiController extends Controller
         $informasi->delete();
 
         return back()->with('success', 'Informasi berhasil dihapus.');
+    }
+
+    public function edit($id)
+    {
+        $informasi = Informasi::findOrFail($id);
+        $kategori = KategoriInformasi::orderBy('nama')->get();
+
+        return view('dashboard.administrator.informasiPublik.editInformasi', compact('informasi', 'kategori'));
+    }
+
+    /**
+     * Update informasi
+     */
+    public function update(Request $request, $id)
+    {
+        $informasi = Informasi::findOrFail($id);
+
+        $validated = $request->validate([
+            'kategori_id' => 'required|exists:kategori_informasi,id',
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        // Jika upload gambar baru
+        if ($request->hasFile('gambar')) {
+
+            // Hapus gambar lama
+            if ($informasi->gambar && Storage::disk('public')->exists($informasi->gambar)) {
+                Storage::disk('public')->delete($informasi->gambar);
+            }
+
+            // Simpan gambar baru
+            $validated['gambar'] = $request->file('gambar')
+                ->store('informasi', 'public');
+        }
+
+        // Update slug kalau judul berubah
+        if ($informasi->judul !== $validated['judul']) {
+            $validated['slug'] = Str::slug($validated['judul']).'-'.time();
+        }
+
+        $informasi->update($validated);
+
+        return redirect()
+            ->route('informasiPublik.index')
+            ->with('success', 'Informasi berhasil diperbarui.');
     }
 }

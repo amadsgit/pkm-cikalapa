@@ -53,6 +53,7 @@
                     <table class="min-w-full text-sm">
                         <thead class="bg-gray-50 text-gray-600">
                             <tr>
+                                <th class="px-4 py-3 text-left">No</th>
                                 <th class="px-4 py-3 text-left">Judul</th>
                                 <th class="px-4 py-3">Kategori</th>
                                 <th class="px-4 py-3">Tanggal</th>
@@ -63,6 +64,9 @@
                         <tbody>
                             @foreach($informasi as $item)
                             <tr class="border-t">
+                                <td class="px-4 py-3 font-medium">
+                                    {{ $loop->iteration + ($informasi->currentPage() - 1) * $informasi->perPage() }}
+                                </td>
                                 <td class="px-4 py-3 font-medium">{{ $item->judul }}</td>
                                 <td class="px-4 py-3">{{ $item->kategori->nama }}</td>
                                 <td class="px-4 py-3">
@@ -71,10 +75,10 @@
                                 <td class="px-4 py-3">{{ $item->author->pegawai->nama_pegawai ?? '-' }}</td>
                                 <td class="px-4 py-3 text-center flex justify-center gap-2">
             
-                                    {{-- <a href="{{ route('administrator.informasi.edit', $item->id) }}"
+                                    <a href="{{ route('administrator.informasi.edit', $item->id) }}"
                                         class="p-2 bg-emerald-50 text-emerald-600 rounded-lg hover:bg-emerald-100">
                                         <i class="ph ph-pencil-simple"></i>
-                                    </a> --}}
+                                    </a>
             
                                     <form action="{{ route('informasiPublik.destroy', $item->id) }}" method="POST"
                                         onsubmit="return confirm('Hapus informasi ini?')">
@@ -98,6 +102,9 @@
                             @endif
                         </tbody>
                     </table>
+                </div>
+                <div class="mt-3">
+                    {{ $informasi->links() }}
                 </div>
             </div>
 

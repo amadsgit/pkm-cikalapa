@@ -32,11 +32,11 @@
     <div class="bg-white rounded-2xl shadow p-6">
         <div class="flex justify-between items-center mb-4">
             <h2 class="text-lg font-semibold text-gray-700"><i class="ph ph-tree-structure text-lg"></i> Daftar Urut Kepangkatan (DUK) Pegawai</h2>
-            <a href="#"
+            {{-- <a href="#"
                 class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-green-600 text-white text-sm font-medium shadow-sm hover:bg-green-700 transition">
                 <i class="ph ph-file-xls text-lg"></i>
                 Export Excel
-            </a>
+            </a> --}}
         </div>
 
         {{-- preview --}}

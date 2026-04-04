@@ -249,6 +249,13 @@ Route::prefix('dashboard')
         Route::delete('/informasi-publik/delete/{id}', [InformasiController::class, 'destroy'])
             ->name('informasiPublik.destroy');
 
+        Route::get('/informasi-publik/edit/{id}', [InformasiController::class, 'edit'])
+            ->name('administrator.informasi.edit');
+
+        Route::put('/informasi-publik/update/{id}', [InformasiController::class, 'update'])
+            ->name('informasiPublik.update');
+
+        // kegiatan
         Route::get('/agenda-kegiatan', [AgendaController::class, 'index'])
             ->name('agendaKegiatan.index');
 
@@ -270,6 +277,12 @@ Route::prefix('dashboard')
 
         Route::delete('/kategori-kegiatan/delete/{id}', [KategoriKegiatanController::class, 'destroy'])
             ->name('kategoriKegiatan.destroy');
+
+        Route::get('/agenda-kegiatan/edit/{id}', [AgendaController::class, 'edit'])
+            ->name('agendaKegiatan.edit');
+
+        Route::put('/agenda-kegiatan/update/{id}', [AgendaController::class, 'update'])
+            ->name('agendaKegiatan.update');
     });
 
 Route::prefix('dashboard')

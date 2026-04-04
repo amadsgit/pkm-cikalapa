@@ -19,7 +19,7 @@ class AgendaController extends Controller
     {
         $agenda = Kegiatan::with(['kategori', 'author'])
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->paginate(5);
 
         $kategori = KategoriKegiatan::orderBy('nama')->get();
 
@@ -78,5 +78,61 @@ class AgendaController extends Controller
         $kegiatan->delete();
 
         return back()->with('success', 'Agenda kegiatan berhasil dihapus.');
+    }
+
+    /**
+     * Tampilkan halaman edit agenda
+     */
+    public function edit($id)
+    {
+        $agenda = Kegiatan::findOrFail($id);
+        $kategori = KategoriKegiatan::orderBy('nama')->get();
+
+        return view(
+            'dashboard.administrator.agendaKegiatan.editAgenda',
+            compact('agenda', 'kategori')
+        );
+    }
+
+    /**
+     * Update agenda kegiatan
+     */
+    public function update(Request $request, $id)
+    {
+        $agenda = Kegiatan::findOrFail($id);
+
+        $validated = $request->validate([
+            'kategori_id' => 'required|exists:kategori_kegiatan,id',
+            'judul' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'lokasi' => 'required|string|max:255',
+            'waktu' => 'required|string|max:100',
+            'tanggal' => 'required|date',
+            'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        // Jika upload gambar baru
+        if ($request->hasFile('gambar')) {
+
+            // Hapus gambar lama
+            if ($agenda->gambar && Storage::disk('public')->exists($agenda->gambar)) {
+                Storage::disk('public')->delete($agenda->gambar);
+            }
+
+            // Simpan gambar baru
+            $validated['gambar'] = $request->file('gambar')
+                ->store('kegiatan', 'public');
+        }
+
+        // Update slug jika judul berubah
+        if ($agenda->judul !== $validated['judul']) {
+            $validated['slug'] = Str::slug($validated['judul']).'-'.time();
+        }
+
+        $agenda->update($validated);
+
+        return redirect()
+            ->route('agendaKegiatan.index')
+            ->with('success', 'Agenda kegiatan berhasil diperbarui.');
     }
 }
