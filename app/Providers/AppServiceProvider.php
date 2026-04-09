@@ -7,29 +7,15 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
-    // public function boot(): void
-    // {
-    //     //
-    // }
-
     public function boot()
     {
-
-        if (config('app.env') === 'production' || env('FORCE_HTTPS', false)) {
-            if (app()->environment('production')) {
-                URL::forceScheme('https');
-            }
+        if (env('FORCE_HTTPS', false)) {
+            URL::forceScheme('https');
         }
     }
 }
