@@ -20,8 +20,9 @@
                     Tentang Puskesmas
                 </h3>
                 <div class="mt-6">
-                    <img src="{{ asset('storage/' . $profile->logo) }}" alt="Puskesmas Cikalapa"
-                        class="h-16 w-auto mb-4 object-contain">
+                    @if($profile && $profile->logo)
+                    <img src="{{ asset('storage/' . $profile->logo) }}" class="h-16 w-auto mb-4 object-contain">
+                    @endif
                     <p class="text-lg font-medium mb-2">Puskesmas Cikalapa</p>
                     <p class="text-sm text-emerald-50/90">
                         Memberikan pelayanan kesehatan masyarakat yang berkualitas, ramah, dan mudah diakses.
