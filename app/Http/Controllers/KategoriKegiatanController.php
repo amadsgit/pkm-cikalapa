@@ -23,16 +23,19 @@ class KategoriKegiatanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|max:255',
-            'deskripsi' => 'nullable',
+            'nama' => 'required|string|max:255',
         ]);
 
-        // RATE LIMIT MANUAL (per IP)
-        $ip = $request->ip();
-        $key = 'rate_limit_kategori_'.$ip;
+        // NORMALISASI INPUT
+        $nama = trim($request->nama);
+        $slug = Str::slug($nama);
 
-        $maxRequest = 30; // 30 request
-        $decay = 60; // dalam detik (1 menit)
+        // RATE LIMIT
+        $ip = $request->ip();
+        $key = 'rate_limit_kategori_kegiatan_'.$ip;
+
+        $maxRequest = 30;
+        $decay = 60;
 
         $current = Cache::get($key, 0);
 
@@ -43,11 +46,10 @@ class KategoriKegiatanController extends Controller
         Cache::put($key, $current + 1, $decay);
 
         try {
-            $slug = Str::slug($request->nama);
 
-            // CEK DUPLIKAT (nama atau slug)
-            $exists = KategoriKegiatan::where('slug', $slug)
-                ->orWhere('nama', $request->nama)
+            // CEK DUPLIKAT (case-insensitive + slug)
+            $exists = KategoriKegiatan::whereRaw('LOWER(nama) = ?', [strtolower($nama)])
+                ->orWhere('slug', $slug)
                 ->exists();
 
             if ($exists) {
@@ -55,45 +57,94 @@ class KategoriKegiatanController extends Controller
             }
 
             KategoriKegiatan::create([
-                'nama' => $request->nama,
+                'nama' => $nama,
                 'slug' => $slug,
             ]);
 
-            // LOGGING
             Log::info('Create kategori kegiatan', [
                 'ip' => $ip,
-                'nama' => $request->nama,
+                'nama' => $nama,
             ]);
 
             return back()->with('success', 'Kategori berhasil ditambahkan ✅');
 
-        } catch (\Exception $e) {
-            return back()->with('error', 'Terjadi kesalahan, coba lagi');
+        } catch (\Throwable $e) {
+
+            Log::error('Gagal create kategori kegiatan', [
+                'error' => $e->getMessage(),
+                'ip' => $ip,
+            ]);
+
+            return back()->with('error', 'Terjadi kesalahan pada sistem.');
         }
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required|max:255',
-            'deskripsi' => 'nullable',
+            'nama' => 'required|string|max:255',
         ]);
 
         $kategori = KategoriKegiatan::findOrFail($id);
 
-        $kategori->update([
-            'nama' => $request->nama,
-            'slug' => Str::slug($request->nama),
-        ]);
+        // NORMALISASI INPUT
+        $nama = trim($request->nama);
+        $slug = Str::slug($nama);
 
-        return back()->with('success', 'Kategori berhasil diperbarui ✅');
+        try {
+
+            // CEK TIDAK ADA PERUBAHAN
+            if (strtolower($kategori->nama) === strtolower($nama)) {
+                return back()->with('info', 'Tidak ada perubahan data.');
+            }
+
+            // CEK DUPLIKAT (kecuali dirinya sendiri)
+            $exists = KategoriKegiatan::where(function ($query) use ($nama, $slug) {
+                $query->whereRaw('LOWER(nama) = ?', [strtolower($nama)])
+                    ->orWhere('slug', $slug);
+            })
+                ->where('id', '!=', $id)
+                ->exists();
+
+            if ($exists) {
+                return back()->with('error', 'Kategori sudah digunakan!');
+            }
+
+            $kategori->update([
+                'nama' => $nama,
+                'slug' => $slug,
+            ]);
+
+            return back()->with('success', 'Kategori berhasil diperbarui ✅');
+
+        } catch (\Throwable $e) {
+
+            Log::error('Gagal update kategori kegiatan', [
+                'error' => $e->getMessage(),
+                'id' => $id,
+            ]);
+
+            return back()->with('error', 'Terjadi kesalahan pada sistem.');
+        }
     }
 
     public function destroy($id)
     {
-        $kategori = KategoriKegiatan::findOrFail($id);
-        $kategori->delete();
+        try {
 
-        return back()->with('success', 'Kategori berhasil dihapus ✅');
+            $kategori = KategoriKegiatan::findOrFail($id);
+            $kategori->delete();
+
+            return back()->with('success', 'Kategori berhasil dihapus ✅');
+
+        } catch (\Throwable $e) {
+
+            Log::error('Gagal delete kategori kegiatan', [
+                'error' => $e->getMessage(),
+                'id' => $id,
+            ]);
+
+            return back()->with('error', 'Terjadi kesalahan saat menghapus data.');
+        }
     }
 }
